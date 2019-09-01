@@ -1,0 +1,26 @@
+{
+  "name": "bitcoin-app",
+  "version": "1.0.0",
+  "description": "Bitcoin App Server Side Rendering",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguelopezv/bitcoin.git"
+  },
+  "author": "Miguel López <miguelopezv@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miguelopezv/bitcoin/issues"
+  },
+  "homepage": "https://github.com/miguelopezv/bitcoin#readme",
+  "dependencies": {
+    "next": "^9.0.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  }
+}
