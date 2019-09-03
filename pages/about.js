@@ -1,10 +1,9 @@
-import { Nav } from '../components';
+import { Layout } from '../components';
 
 const About = () => (
-  <div>
-    <Nav />
+  <Layout>
     <p>About Us</p>
-  </div>
+  </Layout>
 );
 
 export default About;

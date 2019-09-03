@@ -1,3 +1,5 @@
-import Nav from './Nav';
+import Layout from './Layout';
+import Price from './Price';
+import News from './News';
 
-export { Nav };
+export { Layout, Price, News };
