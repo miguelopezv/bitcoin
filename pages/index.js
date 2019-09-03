@@ -1,4 +1,4 @@
-import { Layout, Price } from '../components';
+import { Layout, Price, News } from '../components';
 import fetch from 'isomorphic-unfetch';
 
 const Index = props => (
@@ -11,6 +11,7 @@ const Index = props => (
     <div className="flex">
       <div className="w-2/3">
         <h2>News</h2>
+        <News news={props.bitcoinNews} />
       </div>
       <div className="w-1/3">
         <h2>Upcoming events</h2>
@@ -21,6 +22,8 @@ const Index = props => (
 
 Index.getInitialProps = async () => {
   const key = '7523c7be-97bc-49d3-807b-2c6c3c7c09fc';
+  const newsKey = 'ff046894563742c3922c231081f8bdce';
+
   const objHeader = {
     headers: {
       'X-CMC_PRO_API_KEY': key,
@@ -30,13 +33,22 @@ Index.getInitialProps = async () => {
     gzip: true
   };
 
-  const response = await fetch(
+  const priceResponse = await fetch(
     'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC',
     objHeader
   );
-  const bitcoinPrice = await response.json();
+  const bitcoinPrice = await priceResponse.json();
 
-  return { bitcoinPrice: bitcoinPrice.data.BTC.quote.USD };
+  const newsResponse = await fetch(
+    `https://newsapi.org/v2/everything?q=bitcoin&sortBy=publishedAt&apiKey=${newsKey}&language=en`
+  );
+
+  const bitcoinNews = await newsResponse.json();
+
+  return {
+    bitcoinPrice: bitcoinPrice.data.BTC.quote.USD,
+    bitcoinNews: bitcoinNews.articles
+  };
 };
 
 export default Index;
