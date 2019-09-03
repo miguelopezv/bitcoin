@@ -1,10 +1,11 @@
-import { Layout } from '../components';
+import { Layout, Price } from '../components';
+import fetch from 'isomorphic-unfetch';
 
-const Index = () => (
+const Index = props => (
   <Layout>
     <div className="flex">
       <div className="w-full">
-        <h2>Bitcoin price</h2>
+        <Price price={props.bitcoinPrice} />
       </div>
     </div>
     <div className="flex">
@@ -17,5 +18,25 @@ const Index = () => (
     </div>
   </Layout>
 );
+
+Index.getInitialProps = async () => {
+  const key = '7523c7be-97bc-49d3-807b-2c6c3c7c09fc';
+  const objHeader = {
+    headers: {
+      'X-CMC_PRO_API_KEY': key,
+      'Accept-Encoding': 'deflate'
+    },
+    json: true,
+    gzip: true
+  };
+
+  const response = await fetch(
+    'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=BTC',
+    objHeader
+  );
+  const bitcoinPrice = await response.json();
+
+  return { bitcoinPrice: bitcoinPrice.data.BTC.quote.USD };
+};
 
 export default Index;
